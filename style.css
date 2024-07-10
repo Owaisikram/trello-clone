@@ -4,7 +4,7 @@ body{
     padding: 0px;
     box-sizing: border-box;
     font-family: sans-serif;
-    background-color: ghostwhite;
+    background-color: deepskyblue;
 }
 
 h1{
@@ -24,14 +24,16 @@ main {
   }
   
   .coloumn {
-    border: 2px solid red;
-    min-height: 300px;
+    border: 3px solid black;
+    min-height: 200px;
     min-width: 300px;
-    padding: 10px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    background-color: #a1fa9d;
+    /* gap: 10px; */
+    background-color: midnightblue;
+    border-radius: 25px;
+    color: aqua;
   }
 
   h3{
@@ -48,15 +50,22 @@ main {
     color: black;
     font-weight: normal;
     font-size: large;
+    border-radius: 10px;
   }
 
   input{
     padding: 10px;
     background-color: #ace3b2;
+    border-radius: 15px;
   }
 
-  
+   
 ::placeholder {
-  color: red;
+  color:  black;
   opacity: 1; 
+} 
+
+input:hover {
+  background-color: black;
+   color: aqua; 
 }

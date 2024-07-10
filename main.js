@@ -1,16 +1,19 @@
 // const column = document.querySelectorAll(".column");
 const addCardbtn = document.querySelector("#addCard") 
 const main = document.querySelector("#main");
+let catchedelement = null;
 
 const addTask = (event) => {
     event.preventDefault();
 
 const currentForm = event.target;
-console.log(currentForm);
+// console.log(currentForm);
 const value =  currentForm.elements[0].value;
 
 const parent = currentForm.parentElement;
 const ticket = createTicket(value);
+
+if (!value) return;
 
 parent.insertBefore(ticket, currentForm);
 
@@ -52,9 +55,26 @@ currentForm.reset();
     newDiv.appendChild(newForm);
 
     newForm.addEventListener("submit", addTask);
-    
 
-    return newDiv
+    newDiv.addEventListener("dragleave", (event) => event.preventDefault());
+    newDiv.addEventListener("dragover", (event) => event.preventDefault());
+  
+    newDiv.addEventListener("drop", (event) => {
+      const jisElementPerDropKiyaJaRahaHo = event.target;
+  
+      if (jisElementPerDropKiyaJaRahaHo.className.includes("column")) {
+        // console.log("2");
+        jisElementPerDropKiyaJaRahaHo.appendChild(catchedelement);
+      }
+  
+      if (jisElementPerDropKiyaJaRahaHo.className.includes("ticket")) {
+        jisElementPerDropKiyaJaRahaHo.parentElement.appendChild(
+          catchedelement
+        );
+      }
+    });
+    
+    return newDiv;
   }
 
   const createTicket = (value) => {
@@ -63,7 +83,14 @@ currentForm.reset();
     const elementText = document.createTextNode(value);
   
     ticket.setAttribute("draggable", "true");
+    ticket.setAttribute("class","ticket")
     ticket.appendChild(elementText);
+
+    
+  ticket.addEventListener("mousedown", (event) => {
+    catchedelement = event.target;
+    console.log("1");
+  });
   
     return ticket;
   };
@@ -90,16 +117,10 @@ currentForm.reset();
   }
   
 
-  addCardbtn.addEventListener("submit", (event) => {
-    event.preventDefault();
+  addCardbtn.addEventListener("click", () => {
+   if(!newCard) return;
 
-    const currentInputForm = event.target
-    const newInputCard = currentInputForm.children[0].value;
-    console.log(newInputCard);
+   const yourdiv = CreateCard(newCard);
+   main.insertBefore(yourdiv , addCardbtn);
 
-    const newDivCard = CreateCard(newInputCard);
-
-    main.insertBefore(newDivCard, addCardbtn);
-
-    currentInputForm.reset();
   });
